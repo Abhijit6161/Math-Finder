@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Math Finder - Brain Training & Aptitude Practice</title>
+  <meta name="description" content="Train your brain with speed mental math and aptitude practice challenges. Build accuracy and streaks!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="app">
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+      <a class="brand" href="#home" id="brandLink">
+        <span class="brand-icon">🧠</span>
+        <span class="brand-text">MATH FINDER</span>
+      </a>
+      <div class="topbar-actions">
+        <button id="themeButton" class="icon-button" aria-label="Toggle light or dark mode">
+          <span class="theme-icon">◐</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <!-- HOME / DASHBOARD SCREEN -->
+    <section id="home" class="screen active">
+      <div class="hero">
+        <div class="hero-content">
+          <span class="eyebrow">Brain & Speed Training</span>
+          <h1>Train your brain.<br><span class="gradient-text">Improve your speed.</span></h1>
+          <p class="intro muted">Master calculations, solve aptitude questions, build focus, and grow your daily practice streak.</p>
+        </div>
+        <aside class="best-run">
+          <div class="best-run-badge">Personal Best</div>
+          <strong id="heroBest">0</strong>
+          <p>🔥 <b id="heroStreak">0</b> day streak</p>
+        </aside>
+      </div>
+
+      <!-- Main Feature Cards -->
+      <section class="section-block">
+        <h2 class="section-title">Select Practice Mode</h2>
+        <div class="mode-grid">
+          <button id="mathMode" class="mode-card selected" type="button">
+            <div class="mode-header">
+              <span class="mode-icon">🧮</span>
+              <span class="mode-tag">Math Sprint</span>
+            </div>
+            <div class="mode-body">
+              <b>Math Practice</b>
+              <p>"Master calculations"</p>
+              <div class="mode-stats">
+                <span>200 Questions</span> · <span>5 Operations</span> · <span>Speed Training</span>
+              </div>
+            </div>
+            <span class="mode-btn">Start Math →</span>
+          </button>
+
+          <button id="aptitudeMode" class="mode-card" type="button">
+            <div class="mode-header">
+              <span class="mode-icon">🧠</span>
+              <span class="mode-tag">New Feature</span>
+            </div>
+            <div class="mode-body">
+              <b>Aptitude Practice</b>
+              <p>"Build your aptitude skills"</p>
+              <div class="mode-stats">
+                <span>100 Questions</span> · <span>10 Categories</span> · <span>Easy Level</span>
+              </div>
+            </div>
+            <span class="mode-btn">Start Aptitude →</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Operation / Category Selection Section -->
+      <section id="selectorSection" class="section-block">
+        <div class="section-header">
+          <h2 id="selectorTitle">Choose Math Operation</h2>
+          <p id="selectorSub" class="muted">Select an operation to start your mental calculation sprint.</p>
+        </div>
+
+        <div id="operationGrid" class="operation-grid"></div>
+        <div id="categoryContainer" class="category-container" hidden>
+          <div class="category-grid" id="categoryGrid"></div>
+        </div>
+      </section>
+
+      <!-- Challenge Setup Card -->
+      <section class="card setup">
+        <div class="setup-header">
+          <div>
+            <h2 id="setupTitle">⚙️ Challenge Setup</h2>
+            <p class="muted">Customize your question count and timer speed.</p>
+          </div>
+          <span id="setupSummary" class="setup-summary-badge">Math · Easy</span>
+        </div>
+
+        <div class="setup-grid">
+          <fieldset>
+            <legend>Questions</legend>
+            <div id="countChoices" class="chip-row"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Time Per Question</legend>
+            <div id="timeChoices" class="chip-row"></div>
+          </fieldset>
+        </div>
+
+        <!-- Difficulty for Math Mode -->
+        <div id="difficultySection" class="difficulty-wrapper">
+          <legend>Difficulty Level</legend>
+          <div id="difficultyChoices" class="difficulty-grid">
+            <button data-difficulty="easy" class="difficulty-btn selected" type="button">
+              <b>🟢 Easy</b>
+              <span>Build your basics</span>
+            </button>
+            <button data-difficulty="medium" class="difficulty-btn" type="button">
+              <b>🟡 Medium</b>
+              <span>Improve speed</span>
+            </button>
+            <button data-difficulty="hard" class="difficulty-btn" type="button">
+              <b>🔴 Hard</b>
+              <span>Master calculations</span>
+            </button>
+          </div>
+        </div>
+
+        <button id="startButton" class="primary wide glow-button" type="button">🚀 Start Challenge</button>
+      </section>
+
+      <!-- Your Progress Dashboard -->
+      <section class="section-block">
+        <h2 class="section-title">YOUR PROGRESS</h2>
+        <div class="stat-grid">
+          <article class="stat-card">
+            <span class="stat-label">🔥 Current Streak</span>
+            <b id="statStreak" class="stat-value">0 days</b>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">🏆 Best Score</span>
+            <b id="statBest" class="stat-value">0</b>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">🎯 Overall Accuracy</span>
+            <b id="statAccuracy" class="stat-value">0%</b>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">🧮 Math Accuracy</span>
+            <b id="statMathAcc" class="stat-value">0%</b>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">🧠 Aptitude Accuracy</span>
+            <b id="statAptAcc" class="stat-value">0%</b>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">⚡ Avg Speed</span>
+            <b id="statSpeed" class="stat-value">0s</b>
+          </article>
+        </div>
+      </section>
+
+      <!-- Recent History -->
+      <section class="history-section section-block">
+        <h2 class="section-title">Recent Practice</h2>
+        <div id="historyList" class="history-list"></div>
+      </section>
+    </section>
+
+    <!-- PRACTICE / GAME SCREEN -->
+    <section id="practice" class="screen practice">
+      <div class="practice-header">
+        <div class="practice-meta">
+          <span id="practiceModeTag" class="practice-tag">Math Sprint</span>
+          <b id="questionCount">Question 1 / 10</b>
+          <div class="progress">
+            <i id="progressFill" class="progress-bar-fill"></i>
+          </div>
+        </div>
+        <div id="timerBadge" class="timer-pill">⏱ 10s</div>
+      </div>
+
+      <section class="card game-card">
+        <div id="questionText" class="question-display">2 + 2 = ?</div>
+
+        <!-- Aptitude Options Grid -->
+        <div id="optionGrid" class="option-grid" hidden></div>
+
+        <!-- Math Numeric Answer Form -->
+        <form id="answerForm" class="answer-row">
+          <input id="answerInput" type="text" inputmode="numeric" autocomplete="off" aria-label="Your answer" placeholder="Type answer...">
+          <button type="submit" class="primary">Submit →</button>
+        </form>
+
+        <!-- Feedback & Explanation Display -->
+        <div id="feedback" class="feedback-banner" aria-live="polite"></div>
+        <div id="explanation" class="explanation-box"></div>
+
+        <!-- Live Session Stats -->
+        <div class="game-stats">
+          <span class="game-stat-pill">⭐ Score <b id="scoreValue">0</b></span>
+          <span class="game-stat-pill">🔥 Streak <b id="streakValue">0</b></span>
+        </div>
+      </section>
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section id="results" class="screen results">
+      <article class="card result-card">
+        <span class="eyebrow" id="resultEyebrow">Challenge Complete</span>
+        <h1 id="resultTitle">🎉 Nice work!</h1>
+        <p id="encouragement" class="intro muted"></p>
+
+        <div class="result-summary">
+          <div id="accuracyRing" class="ring">
+            <b id="accuracyValue">0%</b>
+            <span>Accuracy</span>
+          </div>
+          <div class="result-score">
+            <strong id="finalScore">0</strong>
+            <span class="score-label">FINAL SCORE</span>
+            <div class="score-breakdown">
+              <p>✔️ Correct: <b id="correctValue">0 / 0</b></p>
+              <p>⚡ Avg Speed: <b id="averageValue">0s</b></p>
+              <p>🔥 Best Streak: <b id="bestStreakValue">0</b></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="againButton" class="primary glow-button" type="button">🔄 Practice Again</button>
+          <button id="changeButton" class="secondary" type="button">⚙️ Change Challenge</button>
+          <button id="homeButton" class="secondary" type="button">🏠 Home</button>
+        </div>
+      </article>
+
+      <details class="review-details">
+        <summary>📋 Review Answers</summary>
+        <div id="reviewList" class="review-list"></div>
+      </details>
+    </section>
+  </main>
+
+  <script src="js/questions.js"></script>
+  <script src="js/aptitudeQuestions.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
